@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         choice(name:'targetEnvironment', choices: ['dev','test','acc','prod'], description:"Target Environment")
-        booleanParam(name:'Build', defaultValue:true, description:"Build Now")
+        booleanParam(name:'deployNow', defaultValue:true, description:"Deploy Now")
     }
     stages {
         stage("Checkout") {
@@ -21,6 +21,11 @@ pipeline {
              }
         }
         stage("Deploy") {
+            when {
+                expression {
+                    params.deployNow == true
+                }
+            }    
               steps {
                   echo 'Deploy stage'
               }
