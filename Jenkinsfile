@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
         choice(name:'targetEnvironment', choices: ['dev','test','acc','prod'], description:"Target Environment")
+        booleanParam(name:'Build', defaultValue:true, description:"Build Now")
     }
     stages {
         stage("Checkout") {
