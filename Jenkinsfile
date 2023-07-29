@@ -16,7 +16,6 @@ pipeline {
             steps {
                 sh "echo $PATH"
                 sh "echo $SONAR_KEY"
-                sh "gradle -v"
                 sh "java -version"
                 sh "mvn -v"
             }
