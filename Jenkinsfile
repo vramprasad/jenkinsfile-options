@@ -3,6 +3,13 @@ pipeline {
     parameters {
         choice(name:'targetEnvironment', choices: ['dev','test','acc','prod'], description:"Target Environment")
         booleanParam(name:'deployNow', defaultValue:true, description:"Deploy Now")
+        validatingString(
+            name: 'param1', 
+            defaultValue: '', 
+            regex: /^[0-9]+$/, 
+            failedValidationMessage: '', 
+            description: 'Numbers only parameter example'
+        )
     }
     stages {
         stage("Checkout") {
@@ -13,6 +20,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo 'Build stage'
+                sh
             }
         }
         stage("Test") {
@@ -34,7 +42,7 @@ pipeline {
 
     post {
         always {
-            echo "Always executed"
+            echo "This part is Always executed"
         }
 
         success {
