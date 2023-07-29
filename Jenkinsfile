@@ -20,6 +20,11 @@ pipeline {
                 sh "mvn -v"
             }
         }
+        stage("Create and Update build number") {
+            steps {
+                sh './scripts/update_version.sh'
+            }
+        }
         stage("Build") {
             steps {
                 sh "mvn clean install -Dmaven.test.skip=true"
