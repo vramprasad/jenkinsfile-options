@@ -9,4 +9,5 @@ if [[ $? != "0" ]]; then
 fi
 dummyvar='DOCAPPVERSION'
 release_ver=${BUILD_NUMBER}
-sed "s/$dummyvar/$release_ver/g" pom.xml
+sed "s/$dummyvar/$release_ver/g" pom.xml > pom1.xml
+mv pom1.xml pom.xml
