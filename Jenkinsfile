@@ -14,11 +14,11 @@ pipeline {
     stages {
         stage("Tools initializing") {
             steps {
-                sh 'echo $PATH'
-                sh 'echo $SONAR_KEY'
-                sh 'gradle -v'
-                sh 'java -version'
-                sh 'mvn -v'
+                sh "echo $PATH"
+                sh "echo $SONAR_KEY"
+                sh "gradle -v"
+                sh "java -version"
+                sh "mvn -v"
             }
         }
         stage("Build") {
