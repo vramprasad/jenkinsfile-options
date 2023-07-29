@@ -4,10 +4,10 @@ pipeline {
         choice(name:'targetEnvironment', choices: ['dev','test','acc','prod'], description:"Target Environment")
         booleanParam(name:'deployNow', defaultValue:true, description:"Deploy Now")
         validatingString(
-            name: 'param1', 
-            defaultValue: '', 
+            name: 'Test parameter', 
+            defaultValue: '0', 
             regex: /^[0-9]+$/, 
-            failedValidationMessage: '', 
+            failedValidationMessage: 'Input only numbers', 
             description: 'Numbers only parameter example'
         )
     }
@@ -22,22 +22,22 @@ pipeline {
         }
         stage("Build") {
             steps {
-                sh "mvn clean install"
+                sh "mvn clean install -Dmaven.test.skip=true"
             }
         }
-        stage("Test") {
+        stage("Unit Testing") {
              steps {
-                 echo 'Test stage'
+                 sh "mvn test"
              }
         }
-        stage("Deploy") {
-            when {
-                expression {
-                    params.deployNow == true
-                }
-            }    
+        stage("Code Coverage") {
               steps {
-                  echo 'Deploy stage'
+                  sh "mvn jacoco:report"
+                  jacoco(
+                        execPattern: '**/build/jacoco/*.exec',
+                        classPattern: '**/build/classes/java/main',
+                        sourcePattern: '**/src/main'
+                    )
               }
         }
     }
