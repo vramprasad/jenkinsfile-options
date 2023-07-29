@@ -12,15 +12,18 @@ pipeline {
         )
     }
     stages {
-        stage("Checkout") {
+        stage("Tools initializing") {
             steps {
-                echo 'Checkout stage'
+                sh 'echo $PATH'
+                sh 'echo $SONAR_KEY'
+                sh 'gradle -v'
+                sh 'java -version'
+                sh 'mvn -v'
             }
         }
         stage("Build") {
             steps {
                 echo 'Build stage'
-                sh
             }
         }
         stage("Test") {
